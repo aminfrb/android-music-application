@@ -1,7 +1,10 @@
 package com.example.ava.service
 
 import android.content.Context
+import android.media.AudioAttributes
+import android.media.browse.MediaBrowser
 import androidx.core.app.NotificationManagerCompat
+import com.example.ava.domain.models.Song
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.PlaybackException
@@ -16,10 +19,9 @@ import com.google.android.exoplayer2.util.Util
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Singleton
+import kotlin.getValue
 
-@Singleton
-class MusicPlayerManager @Inject constructor(
+class MusicPlayerManager constructor(
     @ApplicationContext private val context: Context,
     private val notificationManager: MusicNotificationManager
 ) {
@@ -72,7 +74,7 @@ class MusicPlayerManager @Inject constructor(
         val mediaSource = if (isLocal && song.localFilePath != null) {
             // build local source
             ProgressiveMediaSource.Factory(DefaultHttpDataSource.Factory())
-                .createMediaSource(MediaItem.fromUri(song.localFilePath))
+                .createMediaSource(MediaBrowser.MediaItem.fromUri(song.localFilePath))
         } else {
             // cache-aware source for streaming
             val cache = SimpleCache(context.cacheDir, 100 * 1024 * 1024) // 100 MB
@@ -80,7 +82,7 @@ class MusicPlayerManager @Inject constructor(
                 .setCache(cache)
                 .setUpstreamDataSourceFactory(DefaultHttpDataSource.Factory())
             ProgressiveMediaSource.Factory(dataSourceFactory)
-                .createMediaSource(MediaItem.fromUri(song.audioUrl))
+                .createMediaSource(MediaBrowser.MediaItem.fromUri(song.audioUrl))
         }
         player.setMediaSource(mediaSource)
         player.prepare()

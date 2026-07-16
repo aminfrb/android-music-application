@@ -10,8 +10,8 @@ import androidx.core.app.NotificationCompat
 import com.example.ava.R
 import com.example.ava.presentation.MainActivity
 
-class MusicNotificationManager @Inject constructor(
-    @ApplicationContext private val context: Context
+class MusicNotificationManager(
+    private val context: Context
 ) {
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     private val channelId = "music_channel"
