@@ -62,6 +62,8 @@ dependencies {
 
     implementation(libs.androidx.datastore)
 
+    implementation(libs.androidx.compose.navigation)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
