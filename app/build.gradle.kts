@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -36,6 +37,10 @@ android {
     }
 
     buildToolsVersion = "35.0.1"
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
