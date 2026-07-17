@@ -22,7 +22,7 @@ android {
 
         // 10.0.2.2 is the host machine as seen from the Android emulator.
         // For a physical device put your LAN IP here.
-        buildConfigField("String", "BASE_URL", "\"http://10.0.2.2:4000/\"")
+        buildConfigField("String", "BASE_URL", "\"http://10.91.214.231:4000/\"")
 
         // Persian + English only; keeps the APK small and the language picker honest.
         resourceConfigurations += listOf("en", "fa")
