@@ -1,7 +1,7 @@
 {
-  "name": "nava-backend",
+  "name": "ava-backend",
   "version": "1.0.0",
-  "description": "Backend for Nava music streaming + social app",
+  "description": "Backend for Ava music streaming + social app",
   "main": "src/server.js",
   "type": "commonjs",
   "scripts": {
@@ -21,5 +21,8 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
+  },
+  "allowScripts": {
+    "better-sqlite3@9.6.0": true
   }
 }

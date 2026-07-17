@@ -27,5 +27,5 @@ const server = http.createServer(app);
 attachSockets(server);
 
 server.listen(config.port, () =>
-  console.log(`Nava backend listening on http://0.0.0.0:${config.port}`)
+  console.log(`Ava backend listening on http://0.0.0.0:${config.port}`)
 );

@@ -1,47 +1,79 @@
 package com.example.ava.di
 
 import android.content.Context
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.PreferenceDataStoreFactory
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStoreFile
-import com.example.ava.data.local.AppDatabase
-import com.example.ava.data.local.dao.*
-import com.example.ava.data.repository.*
-import com.example.ava.domain.repository.*
-import com.example.ava.presentation.screens.home.HomeViewModel
-import com.example.ava.presentation.screens.player.PlayerViewModel
-import com.example.ava.presentation.screens.search.SearchViewModel
-import com.example.ava.presentation.screens.profile.ProfileViewModel
-import com.example.ava.presentation.screens.chat.ChatViewModel
-import com.example.ava.service.MusicPlayerManager
-import com.example.ava.utils.PreferenceManager
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
+import androidx.room.Room
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import com.example.ava.BuildConfig
+import com.example.ava.data.local.db.AvaDatabase
+import com.example.ava.data.remote.api.AuthInterceptor
+import com.example.ava.data.remote.api.AvaApi
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
-val appModule = module {
-    single { PreferenceManager(get(), get()) }
+@Module
+@InstallIn(SingletonComponent::class)
+object AppModule {
 
-    // DataStore
-    single<DataStore<Preferences>> {
-        PreferenceDataStoreFactory.create(
-            produceFile = { get<Context>().preferencesDataStoreFile("user_prefs") }
-        )
+    @Provides @IoDispatcher fun ioDispatcher(): CoroutineDispatcher = Dispatchers.IO
+    @Provides @DefaultDispatcher fun defaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+
+    /** Lives as long as the process. Used for work that must outlive a screen (socket, downloads). */
+    @Provides @Singleton @ApplicationScope
+    fun applicationScope(@IoDispatcher io: CoroutineDispatcher): CoroutineScope =
+        CoroutineScope(SupervisorJob() + io)
+
+    @Provides @Singleton
+    fun json(): Json = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+        coerceInputValues = true
     }
 
-    // Repositories
-    single<SongRepository> { SongRepositoryImpl(get(), get(), get()) }
-    single<PlaylistRepository> { PlaylistRepositoryImpl(get(), get()) }
-    single<UserRepository> { UserRepositoryImpl(get(), get()) }
-    single<ChatRepository> { ChatRepositoryImpl(get(), get(), get()) }
+    @Provides @Singleton
+    fun okHttpClient(authInterceptor: AuthInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(authInterceptor)
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
+                }
+            }
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .build()
 
-    // Music Player Manager
-    single { MusicPlayerManager(get(), get(), get()) }
+    @Provides @Singleton
+    fun retrofit(client: OkHttpClient, json: Json): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL)
+            .client(client)
+            .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            .build()
 
-    // ViewModels
-    viewModel { HomeViewModel(get(), get(), get()) }
-    viewModel { SearchViewModel(get(), get()) }
-    viewModel { PlayerViewModel(get(), get()) }
-    viewModel { ProfileViewModel(get(), get()) }
-    viewModel { ChatViewModel(get(), get()) }
+    @Provides @Singleton
+    fun avaApi(retrofit: Retrofit): AvaApi = retrofit.create(AvaApi::class.java)
+
+    @Provides @Singleton
+    fun database(@ApplicationContext context: Context): AvaDatabase =
+        Room.databaseBuilder(context, AvaDatabase::class.java, AvaDatabase.NAME)
+            .fallbackToDestructiveMigration()
+            .build()
+
+    @Provides fun songDao(db: AvaDatabase) = db.songDao()
+    @Provides fun searchHistoryDao(db: AvaDatabase) = db.searchHistoryDao()
+    @Provides fun chatDao(db: AvaDatabase) = db.chatDao()
 }
