@@ -62,8 +62,8 @@ function seed() {
   );
   const hash = bcrypt.hashSync('123456', 8);
   const demoUsers = [
-    ['rezayee', 'رضایی', 1], ['mohammadi', 'محمدی', 0], ['karimi', 'کریمی', 0],
-    ['ahmadi', 'احمدی', 1], ['naseri', 'ناصری', 0],
+    ['ali', 'علی‌ناصری‌نیا', 1], ['mohammadi', 'محمدی', 0], ['tatar', 'تاتار', 0],
+    ['ahmadi', 'احمدی', 1], ['aminfrb', 'فرح‌بخش', 0],
   ];
   demoUsers.forEach(([u, d, p], i) =>
     insertUser.run(u, d, hash, `https://i.pravatar.cc/300?img=${i + 11}`, p, now())

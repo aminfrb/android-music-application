@@ -37,6 +37,7 @@ import com.example.ava.ui.navigation.Destination
 import kotlinx.coroutines.delay
 import com.example.ava.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
@@ -56,12 +57,15 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            AvaTopBar(
-                avatarUrl = state.avatarUrl,
-                onProfileClick = { navController.navigate(Destination.Profile.route) },
-                onNotificationsClick = { navController.navigate(Destination.Conversations.route) },
-                onSettingsClick = { navController.navigate(Destination.Settings.route) },
-            )
+//            AvaTopBar(
+//                avatarUrl = state.avatarUrl,
+//                onProfileClick = { navController.navigate(Destination.Profile.route) },
+//                onNotificationsClick = { navController.navigate(Destination.Conversations.route) },
+//                onSettingsClick = { navController.navigate(Destination.Settings.route) },
+//            )
+           TopAppBar(
+               title = { Text("ali") }
+           )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->
