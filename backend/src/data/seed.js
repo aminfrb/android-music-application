@@ -42,7 +42,8 @@ const LOCAL_TITLES = [
 ];
 
 const GENRES = ['Chill', 'Electronic', 'Acoustic', 'Lo-fi', 'Ambient', 'Pop', 'Classical'];
-const cover = (seed) => `https://picsum.photos/seed/ava${seed}/600/600`;
+// const cover = (seed) => `https://picsum.photos/seed/ava${seed}/600/600`;
+const cover = (seed) => `https://raw.githubusercontent.com/aminfrb/android-music-application/refs/heads/main/images/golzar.jpg`;
 
 function reset() {
   const tables = ['messages','conversations','artist_follows','follows','recently_played',

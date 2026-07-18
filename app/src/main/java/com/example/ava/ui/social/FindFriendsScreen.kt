@@ -82,6 +82,7 @@ fun FindFriendsScreen(
                                     .clip(CircleShape),
                             )
                         },
+                        //TODO
                         trailingContent = {
                             val following = user.isFollowing
                             if (following) {
