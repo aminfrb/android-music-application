@@ -23,7 +23,7 @@ data class Spacing(
 
 /** Fixed component sizes that recur across screens. */
 data class Sizes(
-    val icon: Dp = 24.dp,
+    val icon: Dp = 20.dp,
     val iconLarge: Dp = 32.dp,
     val avatar: Dp = 40.dp,
     val avatarLarge: Dp = 96.dp,

@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
@@ -29,7 +30,6 @@ import com.example.ava.core.designsystem.component.EmptyState
 import com.example.ava.core.designsystem.component.ShimmerBox
 import com.example.ava.core.designsystem.component.ShimmerCardRow
 import com.example.ava.core.designsystem.component.pressScale
-import com.example.ava.core.designsystem.component.*
 import com.example.ava.core.designsystem.theme.AvaTheme
 import com.example.ava.domain.model.Playlist
 import com.example.ava.domain.model.Song
@@ -37,7 +37,6 @@ import com.example.ava.ui.navigation.Destination
 import kotlinx.coroutines.delay
 import com.example.ava.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     navController: NavController,
@@ -57,15 +56,12 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-//            AvaTopBar(
-//                avatarUrl = state.avatarUrl,
-//                onProfileClick = { navController.navigate(Destination.Profile.route) },
-//                onNotificationsClick = { navController.navigate(Destination.Conversations.route) },
-//                onSettingsClick = { navController.navigate(Destination.Settings.route) },
-//            )
-           TopAppBar(
-               title = { Text("ali") }
-           )
+            AvaTopBar(
+                avatarUrl = state.avatarUrl,
+                onProfileClick = { navController.navigate(Destination.Profile.route) },
+                onNotificationsClick = { navController.navigate(Destination.Conversations.route) },
+                onSettingsClick = { navController.navigate(Destination.Settings.route) },
+            )
         },
         snackbarHost = { SnackbarHost(snackbarHostState) },
     ) { padding ->

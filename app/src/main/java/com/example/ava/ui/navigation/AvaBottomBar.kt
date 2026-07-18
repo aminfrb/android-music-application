@@ -3,11 +3,20 @@ package com.example.ava.ui.navigation
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -20,9 +29,14 @@ fun AvaBottomBar(
     onTabSelected: (Destination) -> Unit,
 ) {
     NavigationBar(
+        modifier = Modifier
+            .padding(horizontal = 20.dp)
+            .clip(RoundedCornerShape(48.dp))
+            .height(64.dp),
         containerColor = MaterialTheme.colorScheme.surface,
         tonalElevation = 0.dp,
     ) {
+        Spacer(Modifier.width(AvaTheme.spacing.xs))
         bottomTabs.forEach { tab ->
             val selected = currentRoute == tab.destination.route
             val scale by animateFloatAsState(
@@ -52,5 +66,6 @@ fun AvaBottomBar(
                 ),
             )
         }
+        Spacer(Modifier.width(AvaTheme.spacing.xs))
     }
 }

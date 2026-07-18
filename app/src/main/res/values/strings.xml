@@ -5,7 +5,7 @@
     <!-- Bottom navigation -->
     <string name="tab_home">Home</string>
     <string name="tab_search">Search</string>
-    <string name="tab_downloads">Downloads</string>
+    <string name="tab_downloads">Download</string>
     <string name="tab_playlists">Playlists</string>
     <string name="tab_profile">Profile</string>
 

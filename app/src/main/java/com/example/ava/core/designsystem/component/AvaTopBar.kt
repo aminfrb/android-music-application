@@ -13,6 +13,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.TopAppBarDefaults.windowInsets
 import androidx.compose.ui.tooling.preview.Preview
 import coil.compose.AsyncImage
 import com.example.ava.core.designsystem.theme.AvaTheme
@@ -36,13 +37,13 @@ fun AvaTopBar(
         title = {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-//                horizontalArrangement = Arrangement.spacedBy(AvaTheme.spacing.sm),
+                horizontalArrangement = Arrangement.spacedBy(AvaTheme.spacing.sm),
             ) {
                 Icon(
                     painterResource(R.drawable.ic_ava_logo),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.primary,
-//                    modifier = Modifier.size(AvaTheme.sizes.iconLarge),
+                    modifier = Modifier.size(AvaTheme.sizes.iconLarge),
                 )
                 Text(
                     stringResource(R.string.app_name),
@@ -50,6 +51,7 @@ fun AvaTopBar(
                 )
             }
         },
+        windowInsets = WindowInsets(0, 0, 0, 0),
         actions = {
             IconButton(onClick = onNotificationsClick) {
                 Icon(Icons.Filled.Notifications, stringResource(R.string.cd_notifications))
@@ -63,11 +65,11 @@ fun AvaTopBar(
                     contentDescription = stringResource(R.string.cd_profile_picture),
                     contentScale = ContentScale.Crop,
                     modifier = Modifier
-//                        .size(AvaTheme.sizes.icon + AvaTheme.spacing.sm)
+                        .size(AvaTheme.sizes.icon + AvaTheme.spacing.sm)
                         .clip(CircleShape),
                 )
             }
-//            Spacer(Modifier.width(AvaTheme.spacing.xs))
+            Spacer(Modifier.width(AvaTheme.spacing.xs))
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.background,
