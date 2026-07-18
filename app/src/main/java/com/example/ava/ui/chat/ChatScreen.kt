@@ -86,7 +86,7 @@ fun ChatScreen(
             reverseLayout = true,
             verticalArrangement = Arrangement.spacedBy(AvaTheme.spacing.xs),
         ) {
-            items(messages.itemCount, key = messages.itemKey { it.id }) { index ->
+            items(messages.itemCount, key = messages.itemKey { it.senderId to it.id }) { index ->
                 messages[index]?.let { message ->
                     MessageBubble(
                         message = message,

@@ -100,21 +100,22 @@ fun AvaAppRoot(isLoggedIn: Boolean) {
                             navController = navController,
                             modifier = Modifier.padding(padding),
                         )
-
-                        playback.currentSong?.let { song ->
-                            MiniPlayer(
-                                song = song,
-                                isPlaying = playback.isPlaying,
-                                progress = if (playback.durationMs > 0)
-                                    playback.positionMs.toFloat() / playback.durationMs else 0f,
-                                animatedVisibilityScope = this@AnimatedContent,
-                                onExpand = { playerExpanded = true },
-                                onTogglePlay = { playerViewModel.onEvent(PlayerEvent.TogglePlayPause) },
-                                onNext = { playerViewModel.onEvent(PlayerEvent.Next) },
-                                modifier = Modifier
-                                    .align(Alignment.BottomCenter)
-                                    .padding(bottom = padding.calculateBottomPadding() + Dp(4f)),
-                            )
+                        if (showBottomBar) {
+                            playback.currentSong?.let { song ->
+                                MiniPlayer(
+                                    song = song,
+                                    isPlaying = playback.isPlaying,
+                                    progress = if (playback.durationMs > 0)
+                                        playback.positionMs.toFloat() / playback.durationMs else 0f,
+                                    animatedVisibilityScope = this@AnimatedContent,
+                                    onExpand = { playerExpanded = true },
+                                    onTogglePlay = { playerViewModel.onEvent(PlayerEvent.TogglePlayPause) },
+                                    onNext = { playerViewModel.onEvent(PlayerEvent.Next) },
+                                    modifier = Modifier
+                                        .align(Alignment.BottomCenter)
+                                        .padding(bottom = padding.calculateBottomPadding() + Dp(4f)),
+                                )
+                            }
                         }
                     }
                 }

@@ -33,6 +33,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import com.example.ava.R
+import kotlinx.coroutines.flow.update
 
 @HiltViewModel
 class ConversationsViewModel @Inject constructor(
@@ -50,6 +51,15 @@ class ConversationsViewModel @Inject constructor(
 
     fun refresh() = viewModelScope.launch {
         (chatRepository.conversations() as? Outcome.Success)?.let { _conversations.value = it.data }
+    }
+
+    fun markAsRead(conversationId: Long) = viewModelScope.launch {
+        _conversations.update { list ->
+            list.map { conv ->
+                if (conv.id == conversationId) conv.copy(unreadCount = 0) else conv
+            }
+        }
+        chatRepository.markRead(conversationId)
     }
 }
 
@@ -118,6 +128,7 @@ fun ConversationsScreen(
                         }
                     },
                     modifier = Modifier.pressScale(pressedScale = 0.99f) {
+                        viewModel.markAsRead(conversation.id)
                         navController.navigate(Destination.Chat.of(conversation.id, conversation.peer.id))
                     },
                 )
