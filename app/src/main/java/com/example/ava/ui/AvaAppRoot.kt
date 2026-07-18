@@ -136,7 +136,7 @@ private fun AvaNavHost(navController: NavHostController, modifier: Modifier = Mo
         popExitTransition = { slideOutHorizontally(tween(280)) { it / 6 } + fadeOut(tween(180)) },
     ) {
         composable(Destination.Home.route) { HomeScreen(navController) }
-        composable(Destination.Search.route) { SearchScreen(navController) }
+        composable(Destination.Search.route) { SearchScreen() }
         composable(Destination.Downloads.route) { DownloadsScreen() }
         composable(Destination.Playlists.route) { PlaylistsScreen(navController) }
         composable(Destination.Profile.route) { ProfileScreen(navController) }

@@ -3,7 +3,6 @@
  *
  * Audio: SoundHelix royalty-free demo tracks (https://www.soundhelix.com) --
  *        stable, CORS-friendly MP3s that ExoPlayer streams without a key.
- * Covers: picsum.photos deterministic seeds.
  *
  * Swap AUDIO_POOL for your own CDN / Firebase Storage links whenever you like;
  * nothing else in the project depends on where the bytes come from.
@@ -18,7 +17,7 @@ const AUDIO_POOL = Array.from({ length: 16 }, (_, i) =>
 );
 
 const WORLD_ARTISTS = [
-  'Aurora Fields', 'Neon Harbor', 'Kite & Bloom', 'The Slow Tide',
+  'Mohhamad Reza Golzar', 'Dorchi', 'Haamim', 'The Slow Tide',
   'Marisol Vane', 'Paper Lantern', 'Odd Compass', 'Velvet Static',
 ];
 const LOCAL_ARTISTS = [
@@ -27,7 +26,7 @@ const LOCAL_ARTISTS = [
 ];
 
 const WORLD_TITLES = [
-  'Glass Morning', 'Undertow', 'Paper Skies', 'Long Way North', 'Sable',
+  'Kharab Kardi', 'Damn Things', 'Roze Sefid', 'Long Way North', 'Sable',
   'Halfway Lights', 'Cinder', 'Blue Hour', 'Static Bloom', 'Low Orbit',
   'Tin Roof', 'Ember Season', 'Salt & Signal', 'Northbound', 'Quiet Machine',
   'Golden Ratio', 'Driftwood', 'Slow Comet', 'Pale Fire', 'Analog Heart',
@@ -43,7 +42,19 @@ const LOCAL_TITLES = [
 
 const GENRES = ['Chill', 'Electronic', 'Acoustic', 'Lo-fi', 'Ambient', 'Pop', 'Classical'];
 // const cover = (seed) => `https://picsum.photos/seed/ava${seed}/600/600`;
-const cover = (seed) => `https://raw.githubusercontent.com/aminfrb/android-music-application/refs/heads/main/images/golzar.jpg`;
+// const cover = (seed) => `https://raw.githubusercontent.com/aminfrb/android-music-application/refs/heads/main/images/golzar.jpg`;
+// const cover = (seed) => `https://placedog.net/600/600/sepia?id=${seed}`;
+const cover = (seed) => {
+  if (seed === '1') {
+    return 'https://raw.githubusercontent.com/aminfrb/android-music-application/refs/heads/main/images/golzar.jpg';
+  } else if (seed === '2') {
+    return 'https://dl.gisomusic.com/Music/1402/05/24/On-Ke-Dad-Enghad-Hers-Mano-GisoMusic.jpg';
+  } else if (seed == '3') {
+    return 'https://upmusics.com/wp-content/uploads/2022/03/Haamim-Roze-Sefid.jpg'
+  } else {
+    return `https://placedog.net/600/600/sepia?id=${seed}`;
+  }
+};
 
 function reset() {
   const tables = ['messages','conversations','artist_follows','follows','recently_played',
@@ -91,7 +102,7 @@ function seed() {
     const artist = WORLD_ARTISTS[i % WORLD_ARTISTS.length];
     rows.push({
       title, artist_id: artistIds[artist], artist_name: artist,
-      cover: cover(`w${i}`), audio: AUDIO_POOL[i % AUDIO_POOL.length],
+      cover: cover(`${i + 1}`), audio: AUDIO_POOL[i % AUDIO_POOL.length],
       dur: 180000 + (i % 7) * 23000, genre: GENRES[i % GENRES.length],
       is_local: 0, plays: 5000 - i * 91,
       released: now() - i * 86400000,

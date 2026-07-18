@@ -1,4 +1,4 @@
-# نوا (Nava) — پلتفرم پخش موسیقی و شبکه اجتماعی
+# آوا (Ava) — پلتفرم پخش موسیقی و شبکه اجتماعی
 
 پروژه پایانی درس «برنامه‌نویسی دستگاه‌های سیار» — دانشگاه صنعتی امیرکبیر، بهار ۱۴۰۵
 
@@ -10,10 +10,9 @@
 
 ```bash
 cd backend
-cp .env.example .env        # JWT_SECRET را عوض کنید
 npm install
-npm run seed                # ۵۰ آهنگ، ۱۶ هنرمند، ۵ کاربر، ۱۰ پلی‌لیست
-npm start                   # http://localhost:4000
+npm run seed
+npm start
 ```
 
 حساب دمو: `ali` / `123456` (اشتراک ویژه). کاربران دیگر: `sara`, `nima`, `roya`, `kian`.
@@ -32,11 +31,6 @@ npm start                   # http://localhost:4000
 | گوشی واقعی | `http://<IP لپ‌تاپ شما>:4000/` |
 
 اگر گوشی واقعی استفاده می‌کنید، IP را در `network_security_config.xml` هم اضافه کنید.
-
-### فونت فارسی
-فایل‌های `Vazirmatn-Regular/Medium/Bold.ttf` را در `app/src/main/res/font/` بگذارید و
-`FontFamily` را در `core/designsystem/theme/Type.kt` فعال کنید (دستور کامل داخل همان فایل کامنت شده).
-بدون این کار هم پروژه کامپایل می‌شود، فقط با فونت پیش‌فرض سیستم.
 
 ---
 
