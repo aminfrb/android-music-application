@@ -86,18 +86,6 @@ class PlayerController @Inject constructor(
     }
 
     /** Emits position at 4 Hz — smooth enough for the seek bar, cheap enough to ignore. */
-//    private fun startTicker() = scope.launch {
-//        while (true) {
-//            controller?.let { c ->
-//                _state.value = _state.value.copy(
-//                    positionMs = c.currentPosition.coerceAtLeast(0),
-//                    durationMs = c.duration.coerceAtLeast(0),
-//                    isPlaying = c.isPlaying,
-//                )
-//            }
-//            delay(250)
-//        }
-//    }
     private fun startTicker() = scope.launch(Dispatchers.Main) {
         while (true) {
             controller?.let { c ->

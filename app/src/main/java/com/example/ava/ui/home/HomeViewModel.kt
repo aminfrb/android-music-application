@@ -1,5 +1,6 @@
 package com.example.ava.ui.home
 
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,8 @@ data class HomeUiState(
     val localPlaylists: List<Playlist> = emptyList(),
     val hasError: Boolean = false,
 )
+
+data class Action(val labelRes: Int, val icon: ImageVector, val route: String)
 
 sealed interface HomeEvent {
     data object Refresh : HomeEvent

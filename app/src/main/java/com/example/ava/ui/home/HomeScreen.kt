@@ -2,12 +2,14 @@ package com.example.ava.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.QueueMusic
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import androidx.room.ForeignKey
 import coil.compose.AsyncImage
 import com.example.ava.core.designsystem.component.AvaTopBar
 import com.example.ava.core.designsystem.component.EmptyState
@@ -199,45 +202,111 @@ private fun DailyPicksCarousel(songs: List<Song>, onSongClick: (Song) -> Unit) {
     }
 }
 
+//@Composable
+//private fun QuickActions(navController: NavController) {
+//    data class Action(val labelRes: Int, val icon: ImageVector, val route: String)
+//    val actions = listOf(
+//        Action(R.string.home_liked_songs, Icons.Filled.Favorite, Destination.LikedSongs.route),
+//        Action(R.string.home_recently_played, Icons.Filled.History, Destination.RecentlyPlayed.route),
+//        Action(R.string.home_my_playlists,
+//            Icons.AutoMirrored.Filled.QueueMusic, Destination.Playlists.route),
+//        Action(R.string.home_top_artists, Icons.Filled.Star, Destination.TopArtists.route),
+//    )
+//
+//    Row(
+//        Modifier
+//            .fillMaxWidth()
+//            .padding(horizontal = AvaTheme.spacing.screen),
+//        horizontalArrangement = Arrangement.spacedBy(AvaTheme.spacing.sm),
+//    ) {
+//        actions.forEach { action ->
+//            Surface(
+//                modifier = Modifier
+//                    .weight(1f)
+//                    .pressScale { navController.navigate(action.route) },
+//                shape = MaterialTheme.shapes.medium,
+//                color = MaterialTheme.colorScheme.secondaryContainer,
+//            ) {
+//                Column(
+//                    Modifier.padding(vertical = AvaTheme.spacing.md),
+//                    horizontalAlignment = Alignment.CenterHorizontally,
+//                    verticalArrangement = Arrangement.spacedBy(AvaTheme.spacing.xs),
+//                ) {
+//                    Icon(action.icon, null, tint = MaterialTheme.colorScheme.onSecondaryContainer)
+//                    Text(
+//                        stringResource(action.labelRes),
+//                        style = MaterialTheme.typography.labelSmall,
+//                        color = MaterialTheme.colorScheme.onSecondaryContainer,
+//                        maxLines = 2,
+//                        overflow = TextOverflow.Ellipsis,
+//                    )
+//                }
+//            }
+//        }
+//    }
+//}
+
 @Composable
 private fun QuickActions(navController: NavController) {
-    data class Action(val labelRes: Int, val icon: ImageVector, val route: String)
     val actions = listOf(
         Action(R.string.home_liked_songs, Icons.Filled.Favorite, Destination.LikedSongs.route),
         Action(R.string.home_recently_played, Icons.Filled.History, Destination.RecentlyPlayed.route),
-        Action(R.string.home_my_playlists, Icons.Filled.QueueMusic, Destination.Playlists.route),
+        Action(R.string.home_my_playlists,
+            Icons.AutoMirrored.Filled.QueueMusic, Destination.Playlists.route),
         Action(R.string.home_top_artists, Icons.Filled.Star, Destination.TopArtists.route),
     )
 
-    Row(
-        Modifier
+    val firstRow = actions.take(2)
+    val secondRow = actions.drop(2)
+
+    Column(
+        modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = AvaTheme.spacing.screen),
-        horizontalArrangement = Arrangement.spacedBy(AvaTheme.spacing.sm),
+        verticalArrangement = Arrangement.spacedBy(AvaTheme.spacing.sm)
     ) {
-        actions.forEach { action ->
-            Surface(
-                modifier = Modifier
-                    .weight(1f)
-                    .pressScale { navController.navigate(action.route) },
-                shape = MaterialTheme.shapes.medium,
-                color = MaterialTheme.colorScheme.secondaryContainer,
-            ) {
-                Column(
-                    Modifier.padding(vertical = AvaTheme.spacing.md),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(AvaTheme.spacing.xs),
-                ) {
-                    Icon(action.icon, null, tint = MaterialTheme.colorScheme.onSecondaryContainer)
-                    Text(
-                        stringResource(action.labelRes),
-                        style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSecondaryContainer,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                    )
-                }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(AvaTheme.spacing.sm)
+        ) {
+            firstRow.forEach { action ->
+                ActionItem(action, navController)
             }
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(AvaTheme.spacing.sm)
+        ) {
+            secondRow.forEach { action ->
+                ActionItem(action, navController)
+            }
+        }
+    }
+}
+
+@Composable
+private fun RowScope.ActionItem(action: Action, navController: NavController) {
+    Surface(
+        modifier = Modifier
+            .weight(1f)
+            .pressScale { navController.navigate(action.route) },
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.secondaryContainer,
+    ) {
+        Row(
+            Modifier.padding(AvaTheme.spacing.md),
+            horizontalArrangement = Arrangement.spacedBy(AvaTheme.spacing.lg),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(action.icon, null, tint = MaterialTheme.colorScheme.onSecondaryContainer)
+            Text(
+                stringResource(action.labelRes),
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSecondaryContainer,
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+            )
         }
     }
 }
