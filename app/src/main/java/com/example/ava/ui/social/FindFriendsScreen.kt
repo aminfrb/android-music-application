@@ -44,6 +44,7 @@ fun FindFriendsScreen(
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.cd_back))
                     }
                 },
+                windowInsets = WindowInsets(0, 0, 0, 0),
             )
         }
     ) { padding ->

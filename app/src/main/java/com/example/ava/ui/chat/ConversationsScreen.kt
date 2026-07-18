@@ -75,6 +75,7 @@ fun ConversationsScreen(
                         Icon(Icons.Filled.PersonSearch, stringResource(R.string.find_friends))
                     }
                 },
+                windowInsets = WindowInsets(0, 0, 0, 0),
             )
         }
     ) { padding ->

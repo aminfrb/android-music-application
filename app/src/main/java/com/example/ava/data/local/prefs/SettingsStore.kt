@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private val Context.dataStore by preferencesDataStore(name = "ava_settings")
+val Context.dataStore by preferencesDataStore(name = "ava_settings")
 
 data class AppSettings(
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
@@ -24,7 +24,7 @@ data class AppSettings(
 class SettingsStore @Inject constructor(
     @dagger.hilt.android.qualifiers.ApplicationContext private val context: Context,
 ) {
-    private object Keys {
+    object Keys {
         val THEME = stringPreferencesKey("theme_mode")
         val LANGUAGE = stringPreferencesKey("language")
         val FONT_SCALE = floatPreferencesKey("font_scale")

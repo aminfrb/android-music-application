@@ -53,6 +53,7 @@ fun DownloadsScreen(viewModel: DownloadsViewModel = hiltViewModel()) {
                         }
                     }
                 },
+                windowInsets = WindowInsets(0, 0, 0, 0),
             )
         }
     ) { padding ->

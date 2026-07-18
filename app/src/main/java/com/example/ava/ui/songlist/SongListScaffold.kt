@@ -2,6 +2,7 @@ package com.example.ava.ui.songlist
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
@@ -48,6 +49,7 @@ fun SongListScaffold(
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.cd_back))
                     }
                 },
+                windowInsets = WindowInsets(0, 0, 0, 0),
             )
         }
     ) { padding ->

@@ -1,5 +1,6 @@
 package com.example.ava.ui.social
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -41,6 +42,7 @@ fun FollowingScreen(
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.cd_back))
                     }
                 },
+                windowInsets = WindowInsets(0, 0, 0, 0),
             )
         }
     ) { padding ->
