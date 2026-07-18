@@ -2,24 +2,20 @@ package com.example.ava.core.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.sp
+import com.example.ava.R
 
-/**
- * Vazirmatn covers Persian and Latin in one family, so the type doesn't lurch when the
- * user flips the language. Drop the .ttf files into res/font and swap the family below:
- *
- *   val Vazir = FontFamily(
- *       Font(R.font.vazirmatn_regular, FontWeight.Normal),
- *       Font(R.font.vazirmatn_medium,  FontWeight.Medium),
- *       Font(R.font.vazirmatn_bold,    FontWeight.Bold),
- *   )
- *
- * Until then the platform family keeps the project compiling on a clean checkout.
- */
-private val Brand: FontFamily = FontFamily.Default
+val Vazir = FontFamily(
+    Font(R.font.vazirmatn_regular, FontWeight.Normal),
+    Font(R.font.vazirmatn_medium,  FontWeight.Medium),
+    Font(R.font.vazirmatn_bold,    FontWeight.Bold),
+)
+
+//private val Brand: FontFamily = FontFamily.Default
 
 private val tight = LineHeightStyle(
     alignment = LineHeightStyle.Alignment.Center,
@@ -27,7 +23,7 @@ private val tight = LineHeightStyle(
 )
 
 private fun style(size: Int, line: Int, weight: FontWeight, spacing: Double = 0.0) = TextStyle(
-    fontFamily = Brand,
+    fontFamily = Vazir,
     fontWeight = weight,
     fontSize = size.sp,
     lineHeight = line.sp,
