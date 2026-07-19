@@ -13,6 +13,8 @@
   <img src="images/chat.jpg" alt="Home Screen" width="200"/>
   <img src="images/downloads.jpg" alt="Home Screen" width="200"/>
   <img src="images/playlist.jpg" alt="Home Screen" width="200"/>
+  <img src="images/fa.jpg" alt="Home Screen" width="200"/>
+  <img src="images/search.jpg" alt="Home Screen" width="200"/>
 </p>
 
 
