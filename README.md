@@ -6,10 +6,13 @@
 
 ## تصاویری از محیط نرم‌افزار 
 
-![golzar](images/golzar.jpg)
-
 <p align="center">
-  <img src="images/Screenshot_2026-07-19-00-19-48-960_com.example.ava.jpg" alt="Home Screen" width="100"/>
+  <img src="images/home.jpg" alt="Home Screen" width="200"/>
+  <img src="images/play.jpg" alt="Home Screen" width="200"/>
+  <img src="images/account.jpg" alt="Home Screen" width="200"/>
+  <img src="images/chat.jpg" alt="Home Screen" width="200"/>
+  <img src="images/downloads.jpg" alt="Home Screen" width="200"/>
+  <img src="images/playlist.jpg" alt="Home Screen" width="200"/>
 </p>
 
 
