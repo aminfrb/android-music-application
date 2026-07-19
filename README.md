@@ -4,6 +4,12 @@
 
 اپلیکیشن اندروید با Jetpack Compose + بک‌اند Node.js. تم سبز، معماری Clean + MVI.
 
+## تصاویری از محیط نرم‌افزار 
+
+![home](images/Screenshot_2026-07-19-00-19-48-960_com.example.ava.jpg)
+![golzar](images/golzar.jpg)
+
+
 ---
 
 ## ۱) اجرای بک‌اند
